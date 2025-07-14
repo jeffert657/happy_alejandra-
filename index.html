@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz Cumpleaños, Alejandra! 🎂</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #fff5f5, #ffe8e8);
+            color: #5a3e3e;
+            text-align: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            margin: 20px 0;
+            color: #d14b8b;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        
+        /* Botón de celebración */
+        .celebration-btn {
+            background: linear-gradient(45deg, #ff69b4, #d14b8b);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(209, 75, 139, 0.3);
+            transition: transform 0.3s;
+            animation: pulse 2s infinite;
+        }
+        
+        .celebration-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Contenedor de celebración (oculto inicialmente) */
+        .celebration-content {
+            display: none;
+            animation: fadeIn 1s ease-in-out;
+        }
+        
+        /* Galería de fotos */
+        .photo-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        
+        .photo-gallery img {
+            width: 250px;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 3px solid white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .photo-gallery img:hover {
+            transform: scale(1.03);
+        }
+        
+        /* CARTA MEJORADA (fondo blanco-rosado y texto legible) */
+        .letter {
+            background: linear-gradient(to right, #fff9f9, #fff0f5);
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 40px;
+            text-align: left;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 182, 193, 0.3);
+            line-height: 1.8;
+            transform: scale(0.9);
+            opacity: 0;
+            transition: all 1s ease-in-out;
+            color: #5a3e3e;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .letter.show {
+            transform: scale(1);
+            opacity: 1;
+        }
+        
+        .letter::before {
+            content: "";
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 1px solid rgba(255, 182, 193, 0.2);
+            border-radius: 8px;
+            pointer-events: none;
+        }
+        
+        .letter p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            opacity: 0;
+            animation: fadeInText 0.5s forwards;
+            animation-delay: calc(var(--delay) * 0.3s);
+        }
+        
+        .letter ul {
+            list-style-type: none;
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .letter li {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 25px;
+            font-size: 1.05rem;
+            opacity: 0;
+            animation: fadeInText 0.5s forwards;
+            animation-delay: calc(var(--delay) * 0.3s);
+        }
+        
+        .letter li::before {
+            content: "✧";
+            position: absolute;
+            left: 0;
+            color: #d14b8b;
+        }
+        
+        .signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            text-align: right;
+            margin-top: 30px;
+            color: #d14b8b;
+            opacity: 0;
+            animation: fadeInText 1s 2s forwards;
+        }
+        
+        /* Efectos de confeti y globos */
+        .confetti, .balloon {
+            position: absolute;
+            pointer-events: none;
+            z-index: 100;
+        }
+        
+        .confetti {
+            width: 10px;
+            height: 10px;
+            background-color: #ff69b4;
+            opacity: 0.8;
+            animation: fall 3s linear forwards;
+        }
+        
+        .balloon {
+            width: 40px;
+            height: 50px;
+            border-radius: 50%;
+            animation: floatUp 5s linear forwards;
+        }
+        
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInText {
+            to { opacity: 1; }
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes floatUp {
+            to {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .celebration-btn { padding: 12px 25px; font-size: 1rem; }
+            .photo-gallery img { width: 150px; height: 150px; }
+            .letter { padding: 30px 20px; }
+            .letter p, .letter li { font-size: 1rem; }
+            .signature { font-size: 1.5rem; }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>¡Feliz Cumpleaños, Alejandra! 🎂</h1>
+    
+    <button class="celebration-btn" id="celebrationBtn">¡Haz clic para celebrar! 🎉</button>
+    
+    <!-- Contenido de celebración (oculto inicialmente) -->
+    <div class="celebration-content" id="celebrationContent">
+        <!-- Galería de fotos -->
+        <div class="photo-gallery">
+            <img src="alejandra1.jpg.jpeg" alt="Alejandra sonriendo">
+            <img src="alejandra2.jpg.jpeg" alt="Alejandra disfrutando">
+            <img src="alejandra3.jpg.jpeg" alt="Alejandra especial">
+        </div>
+        
+        <!-- Carta mejorada -->
+        <div class="letter" id="letter">
+            <p style="--delay: 1;">Querida Alejandra,</p>
+            <p style="--delay: 2;">Hoy, en tu día especial, quiero que sepas lo mucho que vales. No solo como amiga, sino como esa persona que ilumina los días grises con tu risa y tu corazón enorme.</p>
+            <p style="--delay: 3;">En este nuevo año de vida, te deseo:</p>
+            <ul>
+                <li style="--delay: 5;"><strong>Risas</strong> que llenen tus días.</li>
+                <li style="--delay: 6;"><strong>Éxitos</strong> que te hagan sentir orgullosa.</li>
+                <li style="--delay: 7;"><strong>Amor</strong> en todas sus formas.</li>
+            </ul>
+            <p style="--delay: 8;">Que cada vela en tu pastel represente un sueño cumplido y otro por alcanzar. ¡Brilla siempre como lo haces hoy!</p>
+            <div class="signature">Con todo mi cariño,<br>Tu amigo inteligente XD😅🤣</div>
+        </div>
+    </div>
+    
+    <footer style="margin-top: 30px; color: #d14b8b;">
+        mi codigo para celebrarte tu cumple ale 🥳🥳🥳
+    </footer>
+    
+    <!-- Audio (autoplay y loop) -->
+    <audio id="birthdayMusic" loop>
+        <source src="happy-birthday.mp3.mpeg" type="audio/mpeg">
+        Tu navegador no soporta audio.
+    </audio>
+    
+    <script>
+        // Elementos del DOM
+        const celebrationBtn = document.getElementById('celebrationBtn');
+        const celebrationContent = document.getElementById('celebrationContent');
+        const letter = document.getElementById('letter');
+        const birthdayMusic = document.getElementById('birthdayMusic');
+        
+        // Función para crear confeti
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = `${Math.random() * 100}vw`;
+            confetti.style.top = '-10px';
+            
+            const size = Math.random() * 10 + 5;
+            confetti.style.width = `${size}px`;
+            confetti.style.height = `${size}px`;
+            
+            const colors = ['#ff69b4', '#d14b8b', '#ffb6c1', '#ff8fab', '#fb6f92'];
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            document.body.appendChild(confetti);
+            
+            setTimeout(() => {
+                confetti.remove();
+            }, 3000);
+        }
+        
+        // Función para crear globos
+        function createBalloon() {
+            const balloon = document.createElement('div');
+            balloon.className = 'balloon';
+            balloon.style.left = `${Math.random() * 100}vw`;
+            balloon.style.bottom = '-50px';
+            
+            const colors = ['#ff69b4', '#ff8fab', '#ffb6c1', '#ffccd5', '#ffdfba'];
+            balloon.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            // Forma de globo
+            balloon.style.borderRadius = '50% 50% 50% 50% / 60% 60% 40% 40%';
+            
+            document.body.appendChild(balloon);
+            
+            setTimeout(() => {
+                balloon.remove();
+            }, 5000);
+        }
+        
+        // Al hacer clic en el botón
+        celebrationBtn.addEventListener('click', () => {
+            celebrationBtn.style.display = 'none';
+            celebrationContent.style.display = 'block';
+            
+            // Mostrar carta con retraso
+            setTimeout(() => {
+                letter.classList.add('show');
+            }, 500);
+            
+            // Reproducir música (con autoplay permitido después de interacción)
+            birthdayMusic.play().catch(e => console.log("Error al reproducir música: ", e));
+            
+            // Efectos visuales
+            for (let i = 0; i < 100; i++) {
+                createConfetti();
+            }
+            
+            for (let i = 0; i < 20; i++) {
+                createBalloon();
+            }
+        });
+        
+        // Intentar autoplay en móviles (algunos navegadores lo bloquean)
+        document.addEventListener('click', () => {
+            birthdayMusic.play().catch(e => console.log("Autoplay bloqueado hasta interacción"));
+        }, { once: true });
+    </script>
+</body>
+</html>
